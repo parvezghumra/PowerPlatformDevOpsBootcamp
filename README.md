@@ -18,7 +18,7 @@ In order to get the most value out of the bootcamp, we recommend that you have t
 
 3. Three [Power Platform Developer environments](https://learn.microsoft.com/en-us/power-platform/developer/plan) with Dataverse enabled and [admin level access in these environments](https://admin.powerplatform.microsoft.com)
 4. [An Azure App Registration with Client ID and Secret registered as an S2S App](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/walkthrough-register-app-azure-active-directory#confidential-client-app-registration) in each of 3 environments with the System Administrator Security Role
-5. An [Azure DevOps organization](https://dev.azure.com/) with either:
+5. An [Azure DevOps organization](https://dev.azure.com/) with either:  
     a. Full organization admin rights; OR  
     b. A [project](https://learn.microsoft.com/en-us/azure/devops/organizations/projects/create-project?view=azure-devops&tabs=browser) with admin rights in it and the Power Platform Build Tools extension for Azure DevOps pre-installed  
 6. A working [Microsoft-hosted agent](https://aka.ms/azpipelines-parallelism-request) in Azure DevOps to process pipelines
