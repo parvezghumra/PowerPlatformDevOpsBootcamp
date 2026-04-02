@@ -12,9 +12,13 @@ In order to get the most value out of the bootcamp, we recommend that you have t
 1. Basic experience of customising Power Platform including Dataverse, Model Driven Apps and Power Automate using the [Power Apps Maker Portal](https://make.powerapps.com)
 2. A laptop with power supply and any necessary accessories with:
     a. [VSCode](https://code.visualstudio.com/download)
+
     b. [Git](https://git-scm.com/install/windows)
+
     c. [Power Platform CLI](https://aka.ms/pac)
+
     d. [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell?view=powershell-7.6)
+    
 3. Three [Power Platform Developer environments](https://learn.microsoft.com/en-us/power-platform/developer/plan) with Dataverse enabled and [admin level access in these environments](https://admin.powerplatform.microsoft.com)
 4. An Azure App Registration with Client ID and Secret registered as an S2S App in each of 3 environments with the System Administrator Security Role
 5. An [Azure DevOps organization](https://dev.azure.com/) with either:
