@@ -35,12 +35,13 @@ Implement a source control centric development, build and deployment process usi
 ## Further Resources
 
 Here are some helpful resources that will enhance your learning experience during and beyond the bootcamp. Be sure to bookmark these!  
-1. [Power Platform Build Tools GitHub repository with task definitions](https://github.com/microsoft/powerplatform-build-tools/tree/main/src/tasks)  
-2. [Power Platfrom Build Tools Tasks documentation](https://learn.microsoft.com/en-us/power-platform/alm/devops-build-tool-tasks)  
-3. [Power Platform CLI Reference](https://learn.microsoft.com/en-us/power-platform/developer/cli/reference/)  
-4. [Microsoft.PowerApps.Administration.PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/microsoft.powerapps.administration.powershell/?view=pa-ps-latest)  
-5. [Microsoft.PowerApps.Checker.PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/microsoft.powerapps.checker.powershell/?view=pa-ps-latest)  
-6. [Microsoft.PowerPlatform.EnterprisePolicies Module](https://learn.microsoft.com/en-us/powershell/module/microsoft.powerplatform.enterprisepolicies/?view=pa-ps-latest)  
-7. [Microsoft.Xrm.OnlineManagementAPI Module](https://learn.microsoft.com/en-us/powershell/module/microsoft.xrm.onlinemanagementapi/?view=pa-ps-latest)  
-8. [Microsoft.Xrm.Tooling.PackageDeployment Module](https://learn.microsoft.com/en-us/powershell/module/microsoft.xrm.tooling.packagedeployment/?view=pa-ps-latest)
-9. [Microsoft Power Platform API reference](https://learn.microsoft.com/en-us/rest/api/power-platform/)
+1. [Power Platform ALM Documentation](https://learn.microsoft.com/en-us/power-platform/alm/)
+2. [Power Platform Build Tools GitHub repository with task definitions](https://github.com/microsoft/powerplatform-build-tools/tree/main/src/tasks)  
+3. [Power Platfrom Build Tools Tasks documentation](https://learn.microsoft.com/en-us/power-platform/alm/devops-build-tool-tasks)  
+4. [Power Platform CLI Reference](https://learn.microsoft.com/en-us/power-platform/developer/cli/reference/)  
+5. [Microsoft.PowerApps.Administration.PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/microsoft.powerapps.administration.powershell/?view=pa-ps-latest)  
+6. [Microsoft.PowerApps.Checker.PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/microsoft.powerapps.checker.powershell/?view=pa-ps-latest)  
+7. [Microsoft.PowerPlatform.EnterprisePolicies Module](https://learn.microsoft.com/en-us/powershell/module/microsoft.powerplatform.enterprisepolicies/?view=pa-ps-latest)  
+8. [Microsoft.Xrm.OnlineManagementAPI Module](https://learn.microsoft.com/en-us/powershell/module/microsoft.xrm.onlinemanagementapi/?view=pa-ps-latest)  
+9. [Microsoft.Xrm.Tooling.PackageDeployment Module](https://learn.microsoft.com/en-us/powershell/module/microsoft.xrm.tooling.packagedeployment/?view=pa-ps-latest)
+10. [Microsoft Power Platform API reference](https://learn.microsoft.com/en-us/rest/api/power-platform/)
