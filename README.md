@@ -21,7 +21,7 @@ In order to get the most value out of the bootcamp, we recommend that you have t
     d. [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell?view=powershell-7.6)
 
 3. Three [Power Platform Developer environments](https://learn.microsoft.com/en-us/power-platform/developer/plan) with Dataverse enabled and [admin level access in these environments](https://admin.powerplatform.microsoft.com)
-4. An Azure App Registration with Client ID and Secret registered as an S2S App in each of 3 environments with the System Administrator Security Role
+4. [An Azure App Registration with Client ID and Secret registered as an S2S App](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/walkthrough-register-app-azure-active-directory#confidential-client-app-registration) in each of 3 environments with the System Administrator Security Role
 5. An [Azure DevOps organization](https://dev.azure.com/) with either:
     a. Full organization admin rights; OR
     b. A [project](https://learn.microsoft.com/en-us/azure/devops/organizations/projects/create-project?view=azure-devops&tabs=browser) with admin rights in it and the Power Platform Build Tools extension for Azure DevOps pre-installed
@@ -31,6 +31,7 @@ In order to get the most value out of the bootcamp, we recommend that you have t
 ## Background
 
 You are a DevOps Engineer at Zava Construction supporting a Power Platform implementation project where a team of 3 low-code/no-code developers are building a solution for internal use. They share the same development environment and require quality assurance to be conducted in a dedicated test environment before the solution is allowed to be deployed to production
+![Source Control Centric DevOps for Power Platform](https://github.com/parvezghumra/PowerPlatformDevOpsBootcamp/blob/main/Media/SourceControlCentricALMForPowerPlatform.png)
 
 ## The Challenge
 
