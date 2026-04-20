@@ -122,21 +122,40 @@ Capture these values as you go. You will need them again in later labs.
 ## Step 2 - Create a Client Secret
 
 1. In your app registration, go to `Certificates & secrets`.
+![Client secret in Certificates and secrets](./Media/Lesson%200/Step%202/NavigateToCertificatesAndSecrets.png)
+
+*Screenshot: Navigate to Certificates & Secrets area in App Registration*
+
 2. Select the `Client secrets` tab.
+![Client secrets tab](./Media/Lesson%200/Step%202/ClientSecretsTab.png)
+
+*Screenshot: Select Client Secrets tab*
+
 3. Select `+ New client secret`.
+![Client secrets tab](./Media/Lesson%200/Step%202/Click+NewClientSecret.png)
+
+*Screenshot: Click +New Client Secret*
+
 4. Enter a description such as `Power Platform DevOps Bootcamp`.
+
 5. Choose an expiry that matches your organization policy.
 	- Microsoft recommends short-lived secrets and regular rotation.
 	- For a workshop or lab, choose a duration that will not expire before you complete the exercises.
+
 6. Select `Add`.
+
+![Enter Client Secret Description and Expiry](./Media/Lesson%200/Step%202/EnterClientSecretDescriptionAndExpiry.png)
+
+*Screenshot: Enter Client Secret Description and Expiry*
+
 7. Immediately copy the `Value` column for the new secret and store it safely.
 
 > Important
 > Copy the secret `Value`, not the `Secret ID`. You will not be able to see the secret value again after you leave or refresh the page.
 
-![Client secret in Certificates and secrets](https://learn.microsoft.com/en-us/entra/identity-platform/media/quickstart-register-app/add-client-secret.png)
+![Copy secret value](./Media/Lesson%200/Step%202/CopySecretValue.png)
 
-*Screenshot: Creating and recording a client secret in the Certificates & secrets pane.*
+*Screenshot: Copy secret value*
 
 ## Step 3 - Decide Whether You Need API Permissions
 
@@ -150,43 +169,88 @@ For a confidential client used with Dataverse server-to-server authentication:
 
 That delegated permission is commonly used in interactive user sign-in scenarios, not this workshop's S2S automation pattern.
 
+![API Permissions Not Required](./Media/Lesson%200/Step%203/APIPermissionsNotRequired.png)
+
+*Screenshot: API Permissions Not Required*
+
 ## Step 4 - Create the Dataverse Application User
 
 Now bind the app registration to the Dataverse environment.
 
 1. Open the Power Platform admin center at [https://admin.powerplatform.microsoft.com](https://admin.powerplatform.microsoft.com).
+![Navigate to Power Platform Admin Centre](./Media/Lesson%200/Step%204/NavigateToPPAC.png)
+
+*Screenshot: Sign in to Power Platform Admin Centre*
+
 2. Sign in with an account that can manage the target environment.
+![Login to Power Platform Admin Center](./Media/Lesson%200/Step%204/LoginToPPAC.png)
+
+*Screenshot: Sign in to Power Platform Admin Centre*
+
+![Enter password to sign in to Power Platform Admin Center](./Media/Lesson%200/Step%204/EnterPasswordToLoginToPPAC.png)
+
+*Screenshot: Enter password to sign in to Power Platform Admin Centre*
+
+![Choose whether to remain signed in to Power Platform Admin Center](./Media/Lesson%200/Step%204/ChooseWhetherToRemainSignedInToPPAC.png)
+
+*Screenshot: Choose whether to remain signed in to Power Platform Admin Centre*
+
 3. Select `Manage`.
 4. Select `Environments`.
 5. Open the environment you want this app to access.
-6. Select `Settings`.
-7. Go to `Users + permissions`.
-8. Select `Application users`.
-9. Select `+ New app user`.
-10. Select `+ Add an app`.
-11. Search for the app registration you created earlier.
-12. Select the app and then select `Add`.
-13. Set the `Business Unit`.
-	 - In most workshop environments, the root business unit is fine.
-14. Enter an email address.
-	 - Use a sensible service-style address if your organization has a naming standard.
-	 - For a lab, any appropriate valid-looking administrative address pattern is usually sufficient.
-15. Assign the `System Administrator` security role.
-16. Select `Create`.
 
-> Note
-> Some Microsoft documentation and older tenants show an `S2S` shortcut on the environment details page. In the current admin center experience, the supported route is through `Settings` > `Users + permissions` > `Application users`.
+![Open desired environment in Power Platform Admin Center](./Media/Lesson%200/Step%204/OpenDesiredEnvironmentInPPAC.png)
+
+*Screenshot: Open desired environment in Power Platform Admin Centre*
+
+6. Select `See all` under `S2S Apps` in the environment landing page
+![Navigate to S2S Apps from the environment landing page](./Media/Lesson%200/Step%204/NavigateToS2SAppsInPPAC.png)
+
+*Screenshot: Navigate to S2S Apps in the desired environment*
+
+7. Select `+ New app user`.
+![Select + New App User](./Media/Lesson%200/Step%204/ClickNewAppUser.png)
+
+*Screenshot: Select +New App User*
+
+8. Select `+ Add an app`.
+
+![Select Add an App](./Media/Lesson%200/Step%204/SelectAddAnApp.png)
+
+*Screenshot: Select Add an App*
+
+9. Search for the app registration you created earlier.
+10. Select the app and then select `Add`.
+
+![Search for and select the App Registration](./Media/Lesson%200/Step%204/SearchForAndSelectAppRegistration.png)
+
+*Screenshot: Search for and Select App Registration*
+
+11. Set the `Business Unit`.
+	 - In most workshop environments, the root business unit is fine.
+
+![Select Business Unit for S2S App](./Media/Lesson%200/Step%204/SelectBusinessUnitForS2SApp.png)
+
+*Screenshot: Search for and Select App Registration*
+
+12. Assign the `System Administrator` security role.
+
+![Find and Select System Administrator Role for Assignment](./Media/Lesson%200/Step%204/FindAndSelectSystemAdministratorRoleForAssignment.png)
+
+*Screenshot: Search for and Select App Registration*
+
+13. Select `Create`.
 
 ## Step 5 - Repeat for Every Environment Needed by the Workshop
 
-If your bootcamp uses three environments such as Development, Test, and Production, repeat only the `application user` step for each environment.
+This workshop uses three environments, namely Development, Test, and Production. So repeat only the step for adding the S2S App User to each environment.
 
 You usually do not need three separate app registrations if:
 
 - all environments are in the same tenant
 - the same automation identity is acceptable for all three environments
 
-You do need a separate application user in each environment.
+However, you do need a separate application user in each environment.
 
 ## Step 6 - Verify the Configuration
 
@@ -199,14 +263,6 @@ Confirm the following before moving on:
 | Tenant ID and Client ID were recorded | Yes |
 | Application user exists in the Dataverse environment | Yes |
 | Application user has `System Administrator` | Yes |
-
-If you want to do a quick technical verification later with Power Platform CLI, the authentication pattern will look like this:
-
-```powershell
-pac auth create --url https://yourorg.crm.dynamics.com --applicationId <client-id> --clientSecret <client-secret> --tenant <tenant-id>
-```
-
-If the app user and security role are configured correctly, this authentication should succeed.
 
 ## Common Mistakes
 
@@ -248,8 +304,8 @@ You now have:
 
 1. A Microsoft Entra app registration.
 2. A client ID, tenant ID, and client secret.
-3. A Dataverse application user bound to that app registration.
-4. System Administrator rights in the environment for workshop automation.
+3. A Dataverse application user bound to that app registration in each environment.
+4. System Administrator rights in each environment for workshop automation.
 
 This is the identity you will use in later labs for Power Platform ALM and Azure DevOps pipeline authentication.
 
