@@ -239,7 +239,11 @@ Now bind the app registration to the Dataverse environment.
 
 *Screenshot: Search for and Select App Registration*
 
-13. Select `Create`.
+13. Confirm the role assignment and select `Create`.
+
+![Confirm role assignment and create application user](./Media/Lesson%200/Step%204/ConfirmRoleAssignment.png)
+
+*Screenshot: Confirm Role Assignment*
 
 ## Step 5 - Repeat for Every Environment Needed by the Workshop
 
