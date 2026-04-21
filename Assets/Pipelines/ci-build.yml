@@ -7,9 +7,9 @@ trigger:
       - main
   paths:
     include:
-      - Samples/AzureDevOps/Scripts/* # Modify path as required
-      - Samples/AzureDevOps/Settings/* # Modify path as required
-      - Samples/AzureDevOps/Solutions/* # Modify path as required
+      - Scripts/* # Modify path as required
+      - Settings/* # Modify path as required
+      - Solutions/* # Modify path as required
 
 stages:
   - stage: buildArtifacts
@@ -27,7 +27,7 @@ stages:
           name: copyScriptFilesFromSourceToArtifact
           displayName: Copy Script Files from Source to Artifact
           inputs:
-            SourceFolder: '$(Build.SourcesDirectory)/Samples/AzureDevOps/Scripts' # Modify path as required
+            SourceFolder: '$(Build.SourcesDirectory)/Scripts' # Modify path as required
             Contents: '**'
             TargetFolder: '$(Build.ArtifactStagingDirectory)/Build/Scripts'  
         - task: PublishBuildArtifacts@1
@@ -50,7 +50,7 @@ stages:
           name: copySettingsFilesFromSourceToArtifact
           displayName: Copy Settings Files from Source to Artifact
           inputs:
-            SourceFolder: '$(Build.SourcesDirectory)/Samples/AzureDevOps/Settings' # Modify path as required
+            SourceFolder: '$(Build.SourcesDirectory)/Settings' # Modify path as required
             Contents: '**'
             TargetFolder: '$(Build.ArtifactStagingDirectory)/Build/Settings'  
         - task: PublishBuildArtifacts@1
@@ -79,8 +79,8 @@ stages:
           displayName: Pack Dataverse Solution
           inputs:
             SolutionType: Both
-            SolutionSourceFolder: $(Build.SourcesDirectory)/Samples/AzureDevOps/Solutions/EnvironmentRetention # Modify path as required
-            SolutionOutputFile: $(Build.ArtifactStagingDirectory)/Build/Solutions/EnvironmentRetention.zip 
+            SolutionSourceFolder: $(Build.SourcesDirectory)/Solutions/AccountManager # Modify path as required
+            SolutionOutputFile: $(Build.ArtifactStagingDirectory)/Build/Solutions/AccountManager.zip 
         - task: PublishBuildArtifacts@1
           name: publishBuildArtifacts
           displayName: Publish Solutions Build Artifact

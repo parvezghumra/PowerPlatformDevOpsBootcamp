@@ -40,7 +40,7 @@ steps:
     displayName: Set Connection Variables for SP
 
   # Determine the updated solution version number using our custom script for Main branch. Update paths as required in the following command
-  - pwsh: "$(Build.SourcesDirectory)/Samples/AzureDevOps/Scripts/SyncSolutionVersion.ps1 -serverURL '$(BuildTools.EnvironmentUrl)' -clientId '$(setConnectionVariablesSP.BuildTools.ApplicationId)' -clientSecret '$(setConnectionVariablesSP.BuildTools.ClientSecret)'  -solutionUniqueName '${{ parameters.SolutionName }}' -incrementBuild $true -incrementRevision $false -startingFilePath '$(Build.SourcesDirectory)/Samples/AzureDevOps/Scripts'"
+  - pwsh: "$(Build.SourcesDirectory)/Scripts/SyncSolutionVersion.ps1 -serverURL '$(BuildTools.EnvironmentUrl)' -clientId '$(setConnectionVariablesSP.BuildTools.ApplicationId)' -clientSecret '$(setConnectionVariablesSP.BuildTools.ClientSecret)'  -solutionUniqueName '${{ parameters.SolutionName }}' -incrementBuild $true -incrementRevision $false -startingFilePath '$(Build.SourcesDirectory)/Scripts'"
     name: syncSolutionVersionForMain
     displayName: Sync Solution Version for Main
 
@@ -98,18 +98,18 @@ steps:
     displayName: Unpack Solution
     inputs:
       SolutionInputFile: '$(Build.ArtifactStagingDirectory)\${{ parameters.SolutionName }}.zip'
-      SolutionTargetFolder: '$(Build.SourcesDirectory)\Samples\AzureDevOps\Solutions\${{ parameters.SolutionName }}' # Update this path as required
+      SolutionTargetFolder: '$(Build.SourcesDirectory)\Solutions\${{ parameters.SolutionName }}' # Update this path as required
       SolutionType: 'Both'
       OverwriteFiles: true
   
   # The solution we have just exported and unpacked may contain Environment Variables and Connection References that will need configuring when deploying to other environments.
   # So let's invoke the PAC CLI to generate a settings file that contains these variables and references for later use in deployments.
-  - pwsh: pac solution create-settings --solution-zip "$(Build.ArtifactStagingDirectory)\${{ parameters.SolutionName }}.zip" --settings-file "$(Build.SourcesDirectory)\Samples\AzureDevOps\Settings\${{ parameters.SolutionName }}.json" # Update this path as required
+  - pwsh: pac solution create-settings --solution-zip "$(Build.ArtifactStagingDirectory)\${{ parameters.SolutionName }}.zip" --settings-file "$(Build.SourcesDirectory)\Settings\${{ parameters.SolutionName }}.json" # Update this path as required
     name: generateDeploymentSettingsFile
     displayName: Generate Deployment Settings File
 
   # Now we need to tokenise the settings file to replace the environment variables and connection references with tokens that can be replaced at deployment time.  
-  - pwsh:  $(Build.SourcesDirectory)\Samples\AzureDevOps\Scripts\TokeniseDeploymentSettingsFile.ps1 -settingsFilePath "$(Build.SourcesDirectory)\Samples\AzureDevOps\Settings\${{ parameters.SolutionName }}.json" -environmentVariablesTokens '$(EnvironmentVariableTokens)' -connectionReferencesTokens '$(ConnectionReferenceTokens)'
+  - pwsh:  $(Build.SourcesDirectory)\Scripts\TokeniseDeploymentSettingsFile.ps1 -settingsFilePath "$(Build.SourcesDirectory)\Settings\${{ parameters.SolutionName }}.json" -environmentVariablesTokens '$(EnvironmentVariableTokens)' -connectionReferencesTokens '$(ConnectionReferenceTokens)'
     name: tokeniseDeploymentSettingsFile
     displayName: Tokenise Deployment Settings File
 
