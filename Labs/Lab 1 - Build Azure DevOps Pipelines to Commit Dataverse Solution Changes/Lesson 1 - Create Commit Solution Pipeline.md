@@ -8,8 +8,9 @@ By the end of this exercise you will have:
 
 1. Created a new Azure DevOps pipeline named `Commit Solution Changes`.
 2. Configured the pipeline to use the workshop YAML definition.
-3. Understood what each step in `/Assets/Templates/commit-solution-template.yml` does.
-4. Saved the pipeline ready to run in Lesson 2.
+3. Configured the pipeline to automatically link qualifying runs to associated work items.
+4. Understood what each step in `/Assets/Templates/commit-solution-template.yml` does.
+5. Saved the pipeline ready to run in Lesson 2.
 
 Screenshots in this lesson are based on current Azure DevOps portal imagery. Your organisation branding and minor navigation labels may differ slightly.
 
@@ -192,7 +193,7 @@ This line is what links the pipeline to the template that performs the export/un
 
 ---
 
-## Step 6 - Validate Pipeline Configuration
+## Step 6 - Enable Automatic Work Item Linking for Pipeline Runs
 
 1. Open the saved `Commit Solution Changes` pipeline from the pipelines list.
 
@@ -200,9 +201,42 @@ This line is what links the pipeline to the template that performs the export/un
 
 *Screenshot: Opening the saved pipeline from the pipelines list.*
 
+2. Select `More actions` and then choose `Settings`.
+
+![Open pipeline settings](./Media/Lesson%201/Step%206/OpenPipelineSettings.png)
+
+*Screenshot: Opening the pipeline settings dialog from the More actions menu.*
+
+3. In the Pipeline settings dialog, enable:
+
+	`Automatically link new work in this build`
+
+![Enable automatic work item linking](./Media/Lesson%201/Step%206/EnableAutomaticWorkItemLinking.png)
+
+*Screenshot: Enabling automatic work item linking for the YAML pipeline.*
+
+4. Save the setting.
+
+![Save pipeline settings](./Media/Lesson%201/Step%206/SavePipelineSettings.png)
+
+*Screenshot: Saving the updated pipeline settings.*
+
+> **Why this matters**
+> When commits or pull requests are already associated with Azure DevOps work items, enabling this setting allows successful pipeline runs to create `Integrated in build` traceability links automatically.
+
+---
+
+## Step 7 - Validate Pipeline Configuration
+
+1. Open the saved `Commit Solution Changes` pipeline from the pipelines list.
+
+![Open saved Commit Solution Changes pipeline](./Media/Lesson%201/Step%207/OpenSavedCommitSolutionChangesPipeline.png)
+
+*Screenshot: Opening the saved pipeline from the pipelines list.*
+
 2. Select `Edit` and confirm the YAML path still points to `/Assets/Pipelines/commit-solution-changes.yml`.
 
-![Validate YAML path](./Media/Lesson%201/Step%206/ValidateYamlPath.png)
+![Validate YAML path](./Media/Lesson%201/Step%207/ValidateYamlPath.png)
 
 *Screenshot: Validating the YAML path for the pipeline definition.*
 
@@ -211,13 +245,19 @@ This line is what links the pipeline to the template that performs the export/un
 	- `SolutionName`
 	- `CommitMessage`
 
-![Confirm runtime parameters](./Media/Lesson%201/Step%206/ConfirmRuntimeParameters.png)
+![Confirm runtime parameters](./Media/Lesson%201/Step%207/ConfirmRuntimeParameters.png)
 
 *Screenshot: Confirming the pipeline runtime parameters are available.*
 
-4. Do not run the pipeline yet unless instructed. Execution and validation are covered in Lesson 2.
+4. Reopen `Settings` if required and confirm `Automatically link new work in this build` remains enabled.
 
-![Pipeline ready for next lesson](./Media/Lesson%201/Step%206/PipelineReadyForNextLesson.png)
+![Confirm automatic work item linking setting](./Media/Lesson%201/Step%207/ConfirmAutomaticWorkItemLinkingSetting.png)
+
+*Screenshot: Confirming the automatic work item linking setting is enabled.*
+
+5. Do not run the pipeline yet unless instructed. Execution and validation are covered in Lesson 2.
+
+![Pipeline ready for next lesson](./Media/Lesson%201/Step%207/PipelineReadyForNextLesson.png)
 
 *Screenshot: Pipeline is saved and ready to run in the next lesson.*
 
@@ -229,13 +269,15 @@ Before moving to Lesson 2, confirm the following:
 
 1. A pipeline named `Commit Solution Changes` exists in Azure DevOps.
 2. The pipeline references `/Assets/Pipelines/commit-solution-changes.yml`.
-3. The YAML entry file references `/Assets/Templates/commit-solution-template.yml`.
-4. You understand the purpose of each template step.
-5. Required variable groups (`Generic Variables`, `DEV Environment Variables`) are available and authorised.
+3. Automatic work item linking is enabled in Pipeline settings.
+4. The YAML entry file references `/Assets/Templates/commit-solution-template.yml`.
+5. You understand the purpose of each template step.
+6. Required variable groups (`Generic Variables`, `DEV Environment Variables`) are available and authorised.
 
 ## Notes for the Workshop
 
 - The Commit Solution pipeline is intended to be manually run when you want to capture Dataverse solution changes into source control.
+- Enabling `Automatically link new work in this build` improves end-to-end traceability from work items to successful pipeline runs.
 - The first successful run typically creates or updates `Solutions/<SolutionName>` and `Settings/<SolutionName>.json` in the repository.
 - If the pipeline cannot push changes, check branch permissions and ensure the build service identity has Contribute rights.
 - If Power Platform tasks fail early, verify `SPNServiceConnection` in `DEV Environment Variables` matches the exact Azure DevOps service connection name.
