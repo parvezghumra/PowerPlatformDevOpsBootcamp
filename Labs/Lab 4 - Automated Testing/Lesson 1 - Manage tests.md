@@ -246,4 +246,5 @@ In this lesson, you learned how to create and manage Playwright tests using the 
 ## Reference Links
 
 - [Playwright - Generating tests](https://playwright.dev/docs/codegen-intro)
+- [Playwright - Snapshot testing](https://playwright.dev/docs/aria-snapshots)
 
