@@ -34,9 +34,9 @@ steps:
     displayName: Check Solution Installation Status for Solution ${{ parameters.SolutionName }} 
   
   # Transform Deployment Settings file
-  - pwsh: "$(Pipeline.Workspace)/CI-Build/Scripts/TransformDeploymentSettingsFile.ps1 -settingsFilePath '$(Pipeline.Workspace)/CI-Build/Settings/${{ parameters.SolutionName }}.json' -environmentVariablesValues '$(EnvironmentVariableValues)' -connectionTokens '$(ConnectionReferenceTokens)' -environmentId '$(EnvironmentID)' -applicationId '$(setConnectionVariablesSP.BuildTools.ApplicationId)' -clientSecret '$(setConnectionVariablesSP.BuildTools.ClientSecret)'"
-    name: transformDeploymentSettingsFile
-    displayName: Transform Deployment Settings File for Solution ${{ parameters.SolutionName }}
+  # - pwsh: "$(Pipeline.Workspace)/CI-Build/Scripts/TransformDeploymentSettingsFile.ps1 -settingsFilePath '$(Pipeline.Workspace)/CI-Build/Settings/${{ parameters.SolutionName }}.json' -environmentVariablesValues '$(EnvironmentVariableValues)' -connectionTokens '$(ConnectionReferenceTokens)' -environmentId '$(EnvironmentID)' -applicationId '$(setConnectionVariablesSP.BuildTools.ApplicationId)' -clientSecret '$(setConnectionVariablesSP.BuildTools.ClientSecret)' -tenantId '$(setConnectionVariablesSP.BuildTools.TenantId)'"
+  #  name: transformDeploymentSettingsFile
+  #  displayName: Transform Deployment Settings File for Solution ${{ parameters.SolutionName }}
 
   # Import the solution as Stage and Upgrade
   - task: PowerPlatformImportSolution@2
@@ -45,8 +45,8 @@ steps:
       authenticationType: 'PowerPlatformSPN'
       PowerPlatformSPN: '$(SPNServiceConnection)'
       SolutionInputFile: '$(Pipeline.Workspace)/CI-Build/Solutions/${{ parameters.SolutionName }}_managed.zip'
-      UseDeploymentSettingsFile: true
-      DeploymentSettingsFile: '$(Pipeline.Workspace)/CI-Build/Settings/${{ parameters.SolutionName }}.json'
+      UseDeploymentSettingsFile: false
+      #DeploymentSettingsFile: '$(Pipeline.Workspace)/CI-Build/Settings/${{ parameters.SolutionName }}.json'
       AsyncOperation: true
       MaxAsyncWaitTime: '60'
       StageAndUpgrade: true
@@ -63,8 +63,8 @@ steps:
       authenticationType: 'PowerPlatformSPN'
       PowerPlatformSPN: '$(SPNServiceConnection)'
       SolutionInputFile: '$(Pipeline.Workspace)/CI-Build/Solutions/${{ parameters.SolutionName }}_managed.zip'
-      UseDeploymentSettingsFile: true
-      DeploymentSettingsFile: '$(Pipeline.Workspace)/CI-Build/Settings/${{ parameters.SolutionName }}.json'
+      UseDeploymentSettingsFile: false
+      #DeploymentSettingsFile: '$(Pipeline.Workspace)/CI-Build/Settings/${{ parameters.SolutionName }}.json'
       AsyncOperation: true
       MaxAsyncWaitTime: '60'
       HoldingSolution: true
@@ -81,8 +81,8 @@ steps:
       authenticationType: 'PowerPlatformSPN'
       PowerPlatformSPN: '$(SPNServiceConnection)'
       SolutionInputFile: '$(Pipeline.Workspace)/CI-Build/Solutions/${{ parameters.SolutionName }}_managed.zip'
-      UseDeploymentSettingsFile: true
-      DeploymentSettingsFile: '$(Pipeline.Workspace)/CI-Build/Settings/${{ parameters.SolutionName }}.json'
+      UseDeploymentSettingsFile: false
+      #DeploymentSettingsFile: '$(Pipeline.Workspace)/CI-Build/Settings/${{ parameters.SolutionName }}.json'
       AsyncOperation: true
       MaxAsyncWaitTime: '60'
       OverwriteUnmanagedCustomizations: ${{ parameters.OverwriteUnmanagedCustomisations }}

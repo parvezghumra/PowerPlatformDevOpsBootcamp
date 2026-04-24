@@ -146,7 +146,7 @@ Capture these values as you create each service connection. You will reference t
 	| Application ID | The `Application (client) ID` you recorded in Lesson 0 |
 	| Client secret of application | The `Client Secret Value` you recorded in Lesson 0 |
 	| Service connection name | A meaningful name such as `pp-devops-dev` |
-	| Grant access permission to all pipelines | Tick this box for the workshop |
+	| Grant access permission to all pipelines | Tick this box for the workshop. If this checkbox is disabled, wait a moment, refresh your browser tab/window and then try again |
 
 ![Complete the Development service connection form](./Media/Lesson%201/Step%203/CompleteDevelopmentConnectionForm.png)
 
@@ -158,7 +158,7 @@ Capture these values as you create each service connection. You will reference t
 
 *Screenshot: Saving the service connection.*
 
-6. Verify the new service connection appears in the list with a green status indicator.
+6. Verify the new service connection appears in the list.
 
 ![Verify the Development service connection](./Media/Lesson%201/Step%203/VerifyDevelopmentServiceConnection.png)
 
@@ -179,7 +179,7 @@ Repeat the steps in Step 3 for your Test environment, using these values:
 | Application ID | The `Application (client) ID` you recorded in Lesson 0 |
 | Client secret of application | The `Client Secret Value` you recorded in Lesson 0 |
 | Service connection name | A meaningful name such as `pp-devops-test` |
-| Grant access permission to all pipelines | Tick this box for the workshop |
+| Grant access permission to all pipelines | Tick this box for the workshop. If this checkbox is disabled, wait a moment, refresh your browser tab/window and then try again |
 
 1. Select `New service connection`, choose `Power Platform`, and select `Next`.
 
@@ -211,7 +211,7 @@ Repeat the steps in Step 3 for your Production environment, using these values:
 | Application ID | The `Application (client) ID` you recorded in Lesson 0 |
 | Client secret of application | The `Client Secret Value` you recorded in Lesson 0 |
 | Service connection name | A meaningful name such as `pp-devops-prod` |
-| Grant access permission to all pipelines | Tick this box for the workshop |
+| Grant access permission to all pipelines | Tick this box for the workshop. If this checkbox is disabled, wait a moment, refresh your browser tab/window and then try again |
 
 1. Select `New service connection`, choose `Power Platform`, and select `Next`.
 
@@ -245,4 +245,5 @@ Once all three service connections are created, your Service Connections list sh
 - The `Grant access permission to all pipelines` setting allows any pipeline in this project to use the service connection without requiring individual approvals. This is appropriate for a workshop environment. Review this setting for production use in your own organisation.
 - If a service connection shows a warning or error status, select it and use the `Verify` button to test the connection. The most common causes are an incorrect Server URL, an expired client secret, or a missing Dataverse application user in that environment.
 - You must have an application user created in each Dataverse environment with the System Administrator security role assigned, as completed in Lesson 0 Step 4 and Step 5, for the service connection to authenticate successfully.
+- Make note of the names of the Service Connections you set for each environment as these will be required in a later lesson to referenced correctly
 

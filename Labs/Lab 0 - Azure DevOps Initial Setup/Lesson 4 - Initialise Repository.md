@@ -106,13 +106,7 @@ You need the following:
 
 ## Step 2 - Clone the Repository Locally
 
-1. On the empty repository page, select `Clone` in the top-right corner.
-
-![Select Clone](./Media/Lesson%204/Step%202/SelectClone.png)
-
-*Screenshot: Selecting Clone.*
-
-2. Copy the HTTPS clone URL displayed in the panel.
+1. Copy the HTTPS clone URL displayed in the panel.
 
 ![Copy Clone URL](./Media/Lesson%204/Step%202/CopyCloneURL.png)
 
@@ -134,7 +128,7 @@ You need the following:
 
 *Screenshot: Running the git clone command.*
 
-4. When prompted, sign in with your Azure DevOps credentials. Git Credential Manager will handle authentication automatically if it is installed.
+4. If prompted, sign in with your Azure DevOps credentials. Git Credential Manager will handle authentication automatically if it is installed.
 
 ![Authenticate during clone](./Media/Lesson%204/Step%202/AuthenticateDuringClone.png)
 
@@ -210,7 +204,7 @@ You need the following:
 	 ```
 
 	 > **Note**
-	 > If your default branch is named `master` rather than `main`, substitute `master` in the command above. You can check the branch name in the Azure DevOps Repos page.
+	 > If your default branch is named `master` rather than `main`, this command may yield an error that states ` error: src refspec main does not match any`. In this case, substitute `main` with `master` in the command above. 
 
 ![Commit and push to main](./Media/Lesson%204/Step%205/CommitAndPushToMain.png)
 
@@ -258,5 +252,5 @@ You need the following:
 - The relative path `../Templates/commit-solution-template.yml` used inside the pipeline YAML files works correctly because `Pipelines` and `Templates` are sibling folders at the repository root. Do not move or rename these folders.
 - If you need to rename the repository after creation, the clone URL will change. Any local clone will need its remote URL updated using `git remote set-url origin <new-url>`.
 - If your organisation enforces branch policies on `main` that prevent direct pushes, you may need to push to a feature branch and raise a pull request to complete the initial setup. Consult your Azure DevOps administrator if the push is rejected.
-- The solution name `AccountManager` in `ci-build.yml` is a placeholder from the workshop sample. Update it to match your actual solution's unique name before running the CI build pipeline for the first time. This is covered in the CI build lab.
+- The solution name `AccountManager` in `ci-build.yml` is a placeholder from the workshop sample. Update it to match your actual solution's unique name, if your using a different solution, before running the Commit Solution Changes pipeline for the first time. This is covered in the CI build lab.
 

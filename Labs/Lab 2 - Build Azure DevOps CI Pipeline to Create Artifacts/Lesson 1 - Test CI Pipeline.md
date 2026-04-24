@@ -19,9 +19,9 @@ Screenshots in this lesson are based on current Azure DevOps portal imagery. You
 
 ## What You Are Testing
 
-In Lesson 0 you created the `CI Build` pipeline using `/Assets/Pipelines/ci-build.yml`. That YAML currently uses:
+In Lesson 0 you created the `CI Build` pipeline using `/Pipelines/ci-build.yml`. That YAML currently uses:
 
-- Branch filter: `main`
+- Branch filter: `main` (or whichever branch you have configured it to monitor on)
 - Path filters: `Scripts/*`, `Settings/*`, `Solutions/*`
 
 `Commit Solution Changes` increments solution version and commits updated solution/settings assets back to source control. Even if no new customisation was made in Dataverse since your previous run, the version increment still creates changes that qualify for the CI trigger.
@@ -39,14 +39,14 @@ You need the following:
 
 | Requirement | Why it is needed |
 | --- | --- |
-| Lesson 0 complete | Ensures `CI Build` exists and points to `/Assets/Pipelines/ci-build.yml`. |
+| Lesson 0 complete | Ensures `CI Build` exists and points to `/Pipelines/ci-build.yml`. |
 | Lab 1 complete | Ensures `Commit Solution Changes` exists and can push source changes. |
 | Permission to run pipelines and view logs/artifacts | Required to monitor, diagnose, and validate run outputs. |
 | Correct `SolutionName` unique name for your Dataverse solution | Required by `Commit Solution Changes` runtime parameters. |
 | Trigger filters in `ci-build.yml` aligned with your working branch | Required for CI to auto-trigger after commit. |
 
 > **Note**
-> If your workshop branch is not `main`, update the `trigger.branches.include` block in `/Assets/Pipelines/ci-build.yml` before testing automatic CI execution.
+> If your workshop branch is not `main`, update the `trigger.branches.include` block in `/Pipelines/ci-build.yml` before testing automatic CI execution.
 
 ---
 
@@ -83,7 +83,7 @@ You need the following:
 
 *Screenshot: Opening the Run pipeline panel.*
 
-2. Confirm the branch is the one monitored by `CI Build` (for workshop sample: `main`).
+2. Confirm the branch is the one monitored by `CI Build` (for workshop sample: `main` or `master`).
 
 ![Confirm monitored branch](./Media/Lesson%201/Step%202/ConfirmMonitoredBranch.png)
 

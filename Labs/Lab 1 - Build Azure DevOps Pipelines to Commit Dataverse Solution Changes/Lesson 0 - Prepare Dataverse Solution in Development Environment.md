@@ -19,11 +19,9 @@ Screenshots in this lesson are based on current Power Apps Maker Portal imagery.
 
 ## What You Are Building
 
-The Commit Solution pipeline in this lab series exports and unpacks an unmanaged solution from Dataverse, then commits the source-controlled files to your Git repository.
+The Commit Solution pipeline in this lab series exports and unpacks an unmanaged and managed solutions from Dataverse, then commits the source-controlled files to your Git repository.
 
-To focus on the DevOps pipeline flow rather than manual solution authoring, this workshop provides a pre-built unmanaged solution package:
-
-`/Assets/Solution/AccountManager_1_0_0_1.zip`
+To focus on the DevOps pipeline flow rather than manual solution authoring, this workshop provides a pre-built unmanaged solution package at `/Assets/Solution/AccountManager_1_0_0_1.zip`
 
 Once imported and published, this solution becomes the source material that your pipeline will export and commit in Lesson 1 and Lesson 2.
 
@@ -44,7 +42,7 @@ Use the following package for this lesson:
 
 | Item | Value |
 | --- | --- |
-| Package path | `/Assets/Solution/AccountManager_1_0_0_1.zip` |
+| Package path | `/Assets/Solution/AccountManager_1_0_0_1.zip` in workshop repository |
 | Solution type | Unmanaged |
 | Intended target | Development environment only |
 
@@ -113,7 +111,7 @@ Use the following package for this lesson:
 
 *Screenshot: Selecting the AccountManager_1_0_0_1.zip file.*
 
-4. Select `Open` in the file picker.
+4. Select `Open` in the file picker and then click `Next` in the import panel.
 
 ![Open selected solution zip](./Media/Lesson%200/Step%203/OpenSelectedSolutionZip.png)
 
@@ -135,11 +133,19 @@ Use the following package for this lesson:
 
 *Screenshot: Proceeding to the next step of the import wizard.*
 
-3. If prompted for connection references or environment variables, keep the default workshop values and continue.
+3. Establish a connection for the Dataverse Connection Reference if not resolved automatically and enter a value for the Environment Variable when prompted.
 
 ![Review import configuration](./Media/Lesson%200/Step%204/ReviewImportConfiguration.png)
 
 *Screenshot: Reviewing optional import configuration values.*
+
+![Establish Connection for Connection Reference](./Media/Lesson%200/Step%204/EstablishConnectionForConnectionReference.png)
+
+*Screenshot: Establising Connection for Connection Reference.*
+
+![Specify value for Environment Variable](./Media/Lesson%200/Step%204/SpecifyValueForEnvironmentVariable.png)
+
+*Screenshot: Specify value for Environment Variable.*
 
 4. Select `Import`.
 

@@ -15,7 +15,7 @@ By the end of this exercise you will have:
 Screenshots in this lesson are based on current Azure DevOps portal imagery. Your organisation branding and minor navigation labels may differ slightly.
 
 > **Important**
-> The variable group names used in this lesson must be entered exactly as shown. The pipeline YAML files reference them by name. Any spelling difference, including capitalisation, will cause a pipeline failure.
+> The variable group names used in this lesson must be entered exactly as shown. The pipeline YAML files reference them by name. Any spelling difference, including capitalisation, leading/trailing whitespace characters, etc will cause a pipeline failure.
 
 ## What You Are Building
 
@@ -198,16 +198,16 @@ This group holds values shared across all environments and is referenced by both
 
 ### Grant Pipeline Access to Generic Variables
 
-6. With the `Generic Variables` group open, select the `Pipeline permissions` tab (or look for the security icon / three-dot menu depending on your Azure DevOps version).
+6. With the `Generic Variables` group open, select the `Pipeline permissions` tab
 
 ![Open Pipeline Permissions for Generic Variables](./Media/Lesson%203/Step%202/OpenPipelinePermissionsForGenericVariables.png)
 
 *Screenshot: Opening Pipeline permissions for Generic Variables.*
 
-7. Select the `Open access` toggle, or select `+` and add each pipeline definition that should be able to use this group.
+7. Select the `Open access` toggle under the elipses (...) and confirm Open Access, or select `+` and add each pipeline definition that should be able to use this group.
 
    > **Note**
-   > For this workshop, `Open access` is the simplest option as it allows all project pipelines to use the group without requiring per-pipeline authorization. Restrict access in production scenarios.
+   > For this workshop, `Open access` is the simplest option as it allows all project pipelines to use the group without requiring per-pipeline authorization. Restrict access in production scenarios. Furthermore, pipelines have not yet been defined, so to grant access to Variable Groups for specific pipelines, you would need to revisit this step after building the pipelines
 
 ![Grant Open Access to Generic Variables](./Media/Lesson%203/Step%202/GrantOpenAccessToGenericVariables.png)
 
@@ -448,5 +448,4 @@ This group holds values specific to your Production Power Platform environment. 
 - `EnvironmentVariableTokens` and `ConnectionReferenceTokens` are intentionally the same across all environments — the token values are environment-agnostic placeholders. Only `EnvironmentVariableValues` differs per environment.
 - The `ConnectionReferenceTokens` variable is used by both the tokenise step (to write static placeholders into the settings file during commit) and the transform step (to look up which real connection in the target environment corresponds to each token). This is why it lives in `Generic Variables` rather than in environment-specific groups.
 - If a pipeline run fails with a message about not finding a variable group, check that the pipeline has been granted permission to use the group. The first run of a pipeline against a variable group may show an authorization prompt in the pipeline run view — select `Permit` to allow it.
-- Connector IDs for the `ConnectionReferenceTokens` variable can be found in the Deployment Settings file that the PAC CLI generates during the Commit Solution pipeline run. Run the pipeline once and inspect the generated settings file in the repository to discover the connector IDs for your solution.
-- Mark `EnvironmentVariableValues` secrets if the values are sensitive. Note that secret variables cannot be read back after they are saved — keep a separate record of their values.
+- Connector IDs for the `ConnectionReferenceTokens` variable can be found in the logs of the `Commit Solution Changes` pipeline run. Run the pipeline once and inspect the logs to discover the connector IDs for your solution.

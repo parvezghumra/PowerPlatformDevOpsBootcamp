@@ -76,7 +76,7 @@ You need the following:
 
 *Screenshot: Opening the Run pipeline panel.*
 
-2. Confirm the correct branch is selected (typically your workshop branch).
+2. Confirm the correct branch is selected (typically leave the default main/master branch selected).
 
 ![Confirm branch selection](./Media/Lesson%202/Step%202/ConfirmBranchSelection.png)
 
@@ -93,7 +93,7 @@ You need the following:
 > **Why the unique name matters**
 > Dataverse export tasks identify solutions by unique name. If you enter a friendly display label instead, the export task may fail with a solution not found error.
 
-4. In `CommitMessage`, enter a meaningful message that describes the change. Use one of the following patterns:
+4. In `CommitMessage`, enter a meaningful message that describes the change and select `Next: Resources`. Use one of the following patterns:
 
 	- Without work item reference (valid for brand new projects):
 	  `chore: commit AccountManager solution updates from Development`
@@ -250,13 +250,13 @@ If your run fails, use this process:
 
 	*Screenshot: Opening the Generic Variables variable group from Pipeline Library.*
 
-	2. Edit `EnvironmentVariableTokens` and add entries for any new Dataverse Environment Variables in your solution.
+	2. Edit `EnvironmentVariableTokens` and add entries for any new Dataverse Environment Variables in your solution`.
 
 	```json
 	[
-	  {
-	    "SchemaName": "prefix_NewEnvironmentVariable",
-	    "StaticToken": "#{prefix_NewEnvironmentVariable}#"
+	  { 
+		"SchemaName": "ppdobc_TaskSubject", 
+		"StaticToken": "TaskSubject"
 	  }
 	]
 	```
@@ -270,8 +270,8 @@ If your run fails, use this process:
 	```json
 	[
 	  {
-	    "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
-	    "StaticToken": "#{shared_sharepointonline}#"
+	    "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+	    "StaticToken": "DataverseConnection"
 	  }
 	]
 	```

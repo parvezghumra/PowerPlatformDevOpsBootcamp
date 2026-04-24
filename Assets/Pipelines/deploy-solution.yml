@@ -34,7 +34,7 @@ variables:
 resources:
   pipelines:
     - pipeline: 'CI-Build'
-      source: 'CI Build (ALM Conference Workshop Testing)'
+      source: 'CI Build'
 
 stages:
   - stage: deployToTEST

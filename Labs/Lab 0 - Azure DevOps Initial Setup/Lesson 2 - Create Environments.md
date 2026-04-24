@@ -28,7 +28,7 @@ You need the following:
 | Requirement | Why it is needed |
 | --- | --- |
 | An Azure DevOps organisation and project | Environments are created at project scope. |
-| Project Administrator role (or equivalent permission to manage environments and checks) | Required to create environments and configure checks. |
+| Project Administrator, Build Administrator or Contributor role (or equivalent permission to manage environments and checks) as well as Basic level access (rather than Stakeholder) | Required to create environments and configure checks. |
 | Service connection names from Lesson 1 | Helpful for consistent naming and later pipeline configuration. |
 | Users or groups who will approve deployments | Needed when configuring approval checks. |
 | A naming convention for environments | Keeps pipeline references and governance clear. |
@@ -66,7 +66,7 @@ Capture these values as you configure each environment. You will use them in lat
 
 ## Step 2 - Create the Development Environment
 
-1. Select `Create environment`.
+1. Select `Create environment`. 
 
 ![Select Create environment](./Media/Lesson%202/Step%202/SelectCreateEnvironment.png)
 
@@ -84,7 +84,7 @@ Capture these values as you configure each environment. You will use them in lat
 
 *Screenshot: Entering Development environment details.*
 
-3. Select `Create`.
+3. Select `Create`. If you get an `Access Denied` error when you attempt to create the environment, double-check that you have the `Project Administrator`, `Build Administrator` or `Contributor` role assigned, as well as the `Basic` level of access (rather than `Stakeholder`)
 
 ![Create Development environment](./Media/Lesson%202/Step%202/CreateDevelopmentEnvironment.png)
 
@@ -139,9 +139,9 @@ Use values similar to the following:
 
 *Screenshot: Opening the Approvals and checks tab.*
 
-3. Select `+ Create` or `Add check`.
+3. Select the `+` button.
 
-![Select Add check](./Media/Lesson%202/Step%204/SelectAddCheck.png)
+![Select +](./Media/Lesson%202/Step%204/SelectAddCheck.png)
 
 *Screenshot: Selecting Add check.*
 
@@ -155,10 +155,10 @@ Use values similar to the following:
 
 	| Setting | Value |
 	| --- | --- |
-	| Approvers | Select your workshop approver user(s) or group(s) |
+	| Approvers | Select your workshop approver user(s) or group(s). If selecting one of the built-in groups, ensure you select the one corresponding to the Azure DevOps project you're working in |
 	| Instructions | Optional guidance such as `Approve deployment to Development` |
-	| Allow approvers to approve their own runs | Set based on your governance preference |
-	| Timeout | Use an appropriate timeout (for workshop, default is fine) |
+	| Allow approvers to approve their own runs (under `Advanced`) | Set based on your governance preference |
+	| Timeout (under `Control options`) | Use an appropriate timeout (for workshop, default is fine) |
 
 ![Configure Development approval check](./Media/Lesson%202/Step%204/ConfigureDevelopmentApprovalCheck.png)
 
@@ -208,6 +208,9 @@ For most workshop scenarios:
 
 ## Step 6 - Grant Pipeline Permissions to Use Each Environment
 
+> **Important**
+> You will not be able to complete this steup before creating your pipelines. So omit it for now and complete this step after creating each of the three pipelines in labs 1, 2 and 3.
+
 By default, environment usage can be restricted. In this step you explicitly grant your pipeline permission to target each environment.
 
 1. Open the `pp-dev` environment.
@@ -216,7 +219,7 @@ By default, environment usage can be restricted. In this step you explicitly gra
 
 *Screenshot: Opening Development environment to manage permissions.*
 
-2. Select the `Security` or `Pipeline permissions` option (label may vary by Azure DevOps UI version).
+2. Select the `Security` button under the elipses (...) button (label may vary by Azure DevOps UI version).
 
 ![Open Pipeline permissions](./Media/Lesson%202/Step%206/OpenPipelinePermissions.png)
 
@@ -258,7 +261,7 @@ By default, environment usage can be restricted. In this step you explicitly gra
 
 	- The correct name and description.
 	- One active `Approvals` check.
-	- Pipeline permissions configured as intended.
+	- Pipeline permissions configured as intended. (Recheck after completing step 6 after pipeline creation in labs 1, 2 and 3)
 
 ![Verify end-to-end environment configuration](./Media/Lesson%202/Step%207/VerifyEndToEndEnvironmentConfiguration.png)
 

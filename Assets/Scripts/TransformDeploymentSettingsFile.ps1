@@ -28,7 +28,7 @@ function Connect-AdminPowerApp {
     elseif ($tenantId -and $applicationId -and $clientSecret) {
         try {
             Write-Host "Connecting to PowerApps Admin CLI with service principal..."
-            Connect-PowerAppsAccount -TenantID $tenantId -ApplicationId $applicationId -ClientSecret $clientSecret
+            Add-PowerAppsAccount -TenantID $tenantId -ApplicationId $applicationId -ClientSecret $clientSecret
         }
         catch {
             throw "Failed to authenticate to PowerApps Admin CLI using service principal."

@@ -54,7 +54,7 @@ You need the following:
 | Lab 0 complete | The repository and YAML files must already exist in Azure Repos. |
 | Lab 1 complete | The `Commit Solution Changes` pipeline usually creates the `Solutions` and `Settings` folders that this CI pipeline monitors. |
 | Project permissions to create/edit pipelines in Azure DevOps | Required to create the YAML pipeline definition. |
-| Repository contains `/Assets/Pipelines/ci-build.yml` | Required for Azure DevOps to load the pipeline definition. |
+| Repository contains `/Pipelines/ci-build.yml` | Required for Azure DevOps to load the pipeline definition. |
 | The solution name in `ci-build.yml` matches your Dataverse solution unique name | Required so the pack task produces the correct managed and unmanaged solution zip files. |
 
 > **Important**
@@ -117,7 +117,7 @@ The table below explains what each major part of `/Assets/Pipelines/ci-build.yml
 
 *Screenshot: Choosing Azure Repos Git as the code source.*
 
-3. Select your workshop repository.
+3. Select your repository where you copied the `Scripts`, `Templates` and `Pipelines` folders to.
 
 ![Select workshop repository](./Media/Lesson%200/Step%202/SelectWorkshopRepository.png)
 
@@ -133,9 +133,9 @@ The table below explains what each major part of `/Assets/Pipelines/ci-build.yml
 
 *Screenshot: Choosing to use an existing YAML file.*
 
-2. Browse to and select:
+2. Leave the default branch selected and browse to and select:
 
-	`/Assets/Pipelines/ci-build.yml`
+	`/Pipelines/ci-build.yml`
 
 ![Select ci-build.yml](./Media/Lesson%200/Step%203/SelectCiBuildYaml.png)
 
@@ -148,7 +148,7 @@ The table below explains what each major part of `/Assets/Pipelines/ci-build.yml
 *Screenshot: Continuing after selecting the YAML file.*
 
 > **Note**
-> Unlike the Commit Solution pipeline, this CI pipeline does not call a separate template file. The jobs and tasks are defined directly in `/Assets/Pipelines/ci-build.yml`.
+> Unlike the Commit Solution pipeline, this CI pipeline does not call a separate template file. The jobs and tasks are defined directly in `/Pipelines/ci-build.yml`.
 
 ---
 
@@ -175,7 +175,7 @@ trigger:
       - Solutions/*
 ```
 
-This configuration means Azure DevOps will automatically queue the pipeline only when qualifying changes are pushed to `main` and those changes are inside one of the listed folders.
+This configuration means Azure DevOps will automatically queue the pipeline only when qualifying changes are pushed to `main` and those changes are inside one of the listed folders. If your default branch is not `main`, change the reference to the branch name to match your default branch name (eg. `master`)
 
 3. Review the three jobs in the stage and confirm you can identify their purpose:
 
@@ -253,7 +253,7 @@ This configuration means Azure DevOps will automatically queue the pipeline only
 
 *Screenshot: Saving the pipeline definition.*
 
-2. When prompted, set the pipeline name to:
+2. Click the elipses (...) button next to the `Run pipeline` button and choose the `Rename/move` option in the context menu. Set the pipeline name to:
 
 	`CI Build`
 
@@ -270,6 +270,7 @@ This configuration means Azure DevOps will automatically queue the pipeline only
 > **Important**
 > Save the pipeline from the branch that contains the workshop YAML files. If the wrong branch is selected during creation, Azure DevOps may not find the expected file path.
 
+3. Click the elipses (...) button next to the `Run pipeline` button and choose the `Settings` option in the context menu. Check the box for `Automatically link work items included in this run` in the `Pipeline Settings` panel. Select `*` in the branch selection field. Click the `Save` button
 ---
 
 ## Step 6 - Validate the Pipeline Configuration and Trigger Intent
@@ -280,7 +281,7 @@ This configuration means Azure DevOps will automatically queue the pipeline only
 
 *Screenshot: Opening the saved CI Build pipeline from the pipelines list.*
 
-2. Select `Edit` and confirm the YAML path still points to `/Assets/Pipelines/ci-build.yml`.
+2. Select `Edit` and confirm the YAML path still points to `/Pipelines/ci-build.yml`.
 
 ![Validate YAML path](./Media/Lesson%200/Step%206/ValidateYamlPath.png)
 
@@ -288,7 +289,7 @@ This configuration means Azure DevOps will automatically queue the pipeline only
 
 3. Review the YAML one more time and confirm the automatic trigger logic matches the workshop intent:
 
-	- Branch filter includes `main`
+	- Branch filter includes `main` (or whichever is your default branch in your repository)
 	- Path filters include `Scripts/*`, `Settings/*`, and `Solutions/*`
 	- The pipeline will not trigger automatically for unrelated repository changes
 
@@ -300,7 +301,7 @@ This configuration means Azure DevOps will automatically queue the pipeline only
 
 	- A Dataverse change is committed back to Git by `Commit Solution Changes`
 	- That commit updates `Solutions` and/or `Settings`
-	- If the commit lands on `main`, `CI Build` starts automatically
+	- If the commit lands on `main` (or `master` if that is your default branch and that is how you have configured your CI build pipeline to trigger), `CI Build` starts automatically
 	- `CI Build` publishes deployable artifacts for later release stages
 
 ![Understand end to end flow](./Media/Lesson%200/Step%206/UnderstandEndToEndFlow.png)
@@ -316,8 +317,8 @@ This configuration means Azure DevOps will automatically queue the pipeline only
 Before moving to Lesson 1, confirm the following:
 
 1. A pipeline named `CI Build` exists in Azure DevOps.
-2. The pipeline references `/Assets/Pipelines/ci-build.yml`.
-3. You understand that the pipeline currently auto-triggers only for qualifying changes pushed to `main`.
+2. The pipeline references `/Pipelines/ci-build.yml`.
+3. You understand that the pipeline currently auto-triggers only for qualifying changes pushed to `main` (or `master` branch if that is your default branch and you have configured your CI build pipeline trigger accordingly).
 4. You understand the purpose of the three build jobs: `Scripts`, `Settings`, and `Solutions`.
 5. The solution name in the YAML matches your actual unpacked Dataverse solution folder.
 
@@ -325,7 +326,7 @@ Before moving to Lesson 1, confirm the following:
 
 - This pipeline is intentionally selective. It ignores repository changes outside the monitored folders to avoid unnecessary artifact runs.
 - The `Commit Solution Changes` pipeline often creates the exact type of `Settings` and `Solutions` changes that will trigger this pipeline automatically.
-- If your organisation uses feature branches rather than direct commits to `main`, update the `branches.include` block so the CI trigger reflects your real branching strategy.
+- If your organisation uses feature branches rather than direct commits to `main` (or whichever is the default branch), update the `branches.include` block so the CI trigger reflects your real branching strategy.
 - The `Scripts` artifact supports later deployment tasks, the `Settings` artifact carries tokenised deployment configuration, and the `Solutions` artifact contains the packaged Dataverse solution zip files used in deployment.
 - If the `Solutions` or `Settings` folders do not exist yet, complete the Commit Solution lesson and run first so source-controlled outputs are generated before testing the CI build.
 

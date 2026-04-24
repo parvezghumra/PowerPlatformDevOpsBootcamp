@@ -55,7 +55,7 @@ Capture these values as you go. You will need them again in later labs.
 
 *Screenshot: Opening the Azure portal.*
 
-2. Sign in with an account in the same tenant as your Power Platform environments.
+2. Sign in with an account in the same tenant as your Power Platform environments. If this is the first time you're signing in to the Azure portal with this account you may be asked to enrol onto Multi Factor Authentication (MFA). If you have already signed into another Microsoft service in the same browser session, you may not be asked to sign in.
 
 ![Sign In](./Media/Lesson%200/Step%201/SignIn.png)
 
@@ -177,12 +177,12 @@ That delegated permission is commonly used in interactive user sign-in scenarios
 
 Now bind the app registration to the Dataverse environment.
 
-1. Open the Power Platform admin center at [https://admin.powerplatform.microsoft.com](https://admin.powerplatform.microsoft.com).
+1. Open the Power Platform admin center at [https://admin.powerplatform.microsoft.com](https://admin.powerplatform.microsoft.com). 
 ![Navigate to Power Platform Admin Centre](./Media/Lesson%200/Step%204/NavigateToPPAC.png)
 
 *Screenshot: Sign in to Power Platform Admin Centre*
 
-2. Sign in with an account that can manage the target environment.
+2. Sign in with an account that can manage the target environment. If you have already signed into another Microsoft service in the same browser session, you may not be asked to sign in.
 ![Login to Power Platform Admin Center](./Media/Lesson%200/Step%204/LoginToPPAC.png)
 
 *Screenshot: Sign in to Power Platform Admin Centre*

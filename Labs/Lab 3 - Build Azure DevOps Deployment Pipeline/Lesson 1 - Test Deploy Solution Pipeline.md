@@ -21,7 +21,7 @@ Screenshots in this lesson are based on current Azure DevOps portal imagery. You
 
 ## What You Are Testing
 
-In Lesson 0 you created `Deploy Solution` using `/Assets/Pipelines/deploy-solution.yml` and `/Assets/Templates/deploy-solution-template.yml`.
+In Lesson 0 you created `Deploy Solution` using `/Pipelines/deploy-solution.yml` and `/Templates/deploy-solution-template.yml`.
 
 This lesson validates runtime behaviour across real deployment conditions:
 

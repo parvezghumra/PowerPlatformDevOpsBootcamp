@@ -2,14 +2,14 @@
 
 ## Objective
 
-In this lesson you will create an Azure DevOps YAML pipeline named `Commit Solution Changes` that exports an unmanaged Dataverse solution from Development, unpacks it into source control format, tokenises deployment settings, and commits the updated files back to your Git repository.
+In this lesson you will create an Azure DevOps YAML pipeline named `Commit Solution Changes` that exports unmanaged and managed Dataverse solutions from Development, unpacks them into source control format, tokenises deployment settings, and commits the updated files back to your Git repository.
 
 By the end of this exercise you will have:
 
 1. Created a new Azure DevOps pipeline named `Commit Solution Changes`.
 2. Configured the pipeline to use the workshop YAML definition.
 3. Configured the pipeline to automatically link qualifying runs to associated work items.
-4. Understood what each step in `/Assets/Templates/commit-solution-template.yml` does.
+4. Understood what each step in `/Templates/commit-solution-template.yml` does.
 5. Saved the pipeline ready to run in Lesson 2.
 
 Screenshots in this lesson are based on current Azure DevOps portal imagery. Your organisation branding and minor navigation labels may differ slightly.
@@ -21,8 +21,8 @@ Screenshots in this lesson are based on current Azure DevOps portal imagery. You
 
 This workshop uses a two-file YAML pattern:
 
-- `/Assets/Pipelines/commit-solution-changes.yml` is the pipeline entry file used by Azure DevOps.
-- `/Assets/Templates/commit-solution-template.yml` contains the reusable step-by-step job logic.
+- `/Pipelines/commit-solution-changes.yml` is the pipeline entry file used by Azure DevOps.
+- `/Templates/commit-solution-template.yml` contains the reusable step-by-step job logic.
 
 The entry file passes `SolutionName` and `CommitMessage` parameters into the template, and the template performs the full export, unpack, tokenisation, and Git commit process.
 
@@ -35,7 +35,7 @@ You need the following:
 | Lab 0 complete (especially Service Connections, Variable Groups, and repository initialisation) | The pipeline depends on these resources at runtime. |
 | The `AccountManager` solution imported into Development (Lesson 0) | This is the solution you will export and commit. |
 | Project permissions to create/edit pipelines in Azure DevOps | Required to create the YAML pipeline definition. |
-| Repository contains `Assets/Pipelines/commit-solution-changes.yml` and `Assets/Templates/commit-solution-template.yml` | Required for pipeline and template resolution. |
+| Repository contains `/Pipelines/commit-solution-changes.yml` and `Templates/commit-solution-template.yml` | Required for pipeline and template resolution. |
 
 ### Required Variable Groups
 
@@ -48,7 +48,7 @@ These names are referenced directly in YAML and must match exactly.
 
 ## Understanding the Template Steps
 
-The table below explains each task in `/Assets/Templates/commit-solution-template.yml` so attendees understand what happens when the pipeline runs.
+The table below explains each task in `/Templates/commit-solution-template.yml` so attendees understand what happens when the pipeline runs.
 
 | Template Step / Task | Purpose |
 | --- | --- |
@@ -92,7 +92,7 @@ The table below explains each task in `/Assets/Templates/commit-solution-templat
 
 ## Step 2 - Start Creating a New YAML Pipeline
 
-1. Select `New pipeline`.
+1. Select `New pipeline` if you already have a pipeline defined in the project, or `Create pipeline` otherwise.
 
 ![Select New pipeline](./Media/Lesson%201/Step%202/SelectNewPipeline.png)
 
@@ -104,7 +104,7 @@ The table below explains each task in `/Assets/Templates/commit-solution-templat
 
 *Screenshot: Choosing Azure Repos Git as the code source.*
 
-3. Select your workshop repository.
+3. Select your you repository where you have copied the `Scripts`, `Templates` and `Pipelines` folders from the workshop repository.
 
 ![Select workshop repository](./Media/Lesson%201/Step%202/SelectWorkshopRepository.png)
 
@@ -120,9 +120,9 @@ The table below explains each task in `/Assets/Templates/commit-solution-templat
 
 *Screenshot: Choosing to use an existing YAML file.*
 
-2. Browse to and select:
+2. Leave the default branch selected and browse to and select:
 
-	`/Assets/Pipelines/commit-solution-changes.yml`
+	`/Pipelines/commit-solution-changes.yml`
 
 ![Select commit-solution-changes.yml](./Media/Lesson%201/Step%203/SelectCommitSolutionChangesYaml.png)
 
@@ -135,7 +135,7 @@ The table below explains each task in `/Assets/Templates/commit-solution-templat
 *Screenshot: Continuing after selecting the YAML file.*
 
 > **Note**
-> Although you select `/Assets/Pipelines/commit-solution-changes.yml`, that file imports `/Assets/Templates/commit-solution-template.yml`, which contains the detailed pipeline steps.
+> Although you select `/Pipelines/commit-solution-changes.yml`, that file imports `/Templates/commit-solution-template.yml`, which contains the detailed pipeline steps.
 
 ---
 
@@ -158,7 +158,7 @@ The table below explains each task in `/Assets/Templates/commit-solution-templat
 
 This line is what links the pipeline to the template that performs the export/unpack/commit workflow.
 
-3. Select `Show assistant` or open the template file in your repository to familiarise yourself with each task listed in [Understanding the Template Steps](#understanding-the-template-steps).
+3. Open the template file in your repository in a new browser tab to familiarise yourself with each task listed in [Understanding the Template Steps](#understanding-the-template-steps).
 
 ![Open template reference details](./Media/Lesson%201/Step%204/OpenTemplateReferenceDetails.png)
 
@@ -168,13 +168,13 @@ This line is what links the pipeline to the template that performs the export/un
 
 ## Step 5 - Save the Pipeline as Commit Solution Changes
 
-1. Select the dropdown next to `Run` and choose `Save` (or `Save and run`, then cancel run if you are only saving at this stage).
+1. Return to the tab which shows the pipeline editory, continuing fom point 2. Select the dropdown next to `Run` and choose `Save`.
 
 ![Select Save pipeline](./Media/Lesson%201/Step%205/SelectSavePipeline.png)
 
 *Screenshot: Saving the pipeline definition.*
 
-2. When prompted, set the pipeline name to:
+2. Select the elipses (...) button next to the `Run Pipeline` button and choose the `Rename/move` option from the context menu, set the pipeline name to:
 
 	`Commit Solution Changes`
 
@@ -201,7 +201,7 @@ This line is what links the pipeline to the template that performs the export/un
 
 *Screenshot: Opening the saved pipeline from the pipelines list.*
 
-2. Select `More actions` and then choose `Settings`.
+2. Select the elipses (...) button next to the `Run Pipeline` button and then choose `Settings`.
 
 ![Open pipeline settings](./Media/Lesson%201/Step%206/OpenPipelineSettings.png)
 
@@ -209,13 +209,13 @@ This line is what links the pipeline to the template that performs the export/un
 
 3. In the Pipeline settings dialog, enable:
 
-	`Automatically link new work in this build`
+	`Automatically link work items included in this run`
 
 ![Enable automatic work item linking](./Media/Lesson%201/Step%206/EnableAutomaticWorkItemLinking.png)
 
 *Screenshot: Enabling automatic work item linking for the YAML pipeline.*
 
-4. Save the setting.
+4. Select `*` in the branch selection field and save the setting.
 
 ![Save pipeline settings](./Media/Lesson%201/Step%206/SavePipelineSettings.png)
 
@@ -226,7 +226,57 @@ This line is what links the pipeline to the template that performs the export/un
 
 ---
 
-## Step 7 - Validate Pipeline Configuration
+## Step 7 - Link Variable Groups to Commit Solution Changes Pipeline
+
+1. Open the saved `Commit Solution Changes` pipeline from the pipelines list, and click on the `Edit` button
+
+2. Click on the elipses (...) button towards to the top-right and select the `Triggers` button in the context menu
+
+3. Select the `Variables` tab and click the `Variable groups` group
+
+4. Click on the `Link variable groups` button
+
+5. Select the `Generic Variables` and then click the `Link` button. 
+
+6. Select the `Link variable groups` button again. Select the `DEV Environment Variables` Variable group. Click the `Link` button
+
+---
+
+## Step 8 - Grant Commit Solution Changes Pipeline access to the Variable Groups and Service Connection
+
+1. Navigate to `Library` in the left hand navigation under the `Pipelines` menu
+
+2. Open the `Generic Variables` Variable group and select the `Pipeline Permissions` tab.
+
+3. Select the `+` button and select the `Commit Solution Changes` pipeline from the context menu to grant it access
+
+4. Click the dialog and open the `DEV Environment Variables` Variable group and select the `Pipeline Permissions` tab
+
+5. Select the `+` button and select the `Commit Solution Changes` pipeline from the context menu to grant it access
+
+6. Open `Project Settings` and navigate to `Service Connections` under the `Pipelines` area
+
+7. Select the Service Connection corresponding to the Development environment
+
+8. Click the elipses (...) button towards the top right and select the `Security` option in the context menu
+
+9. Click the `+` button under `Pipeline Permissions` and select the `Commit Solution Changes` option in the context menu
+
+---
+
+## Step 9 - Grant Build Service User privileges to Contribute to the Repository
+
+1. Navigate to `Repos` in the left hand menu in Azure DevOps
+
+2. Click the repository selector towards the top of the page in the breadcrumb trail and choose the `Manage Repositories` option in the context menu
+
+3. Select the `PowerPlatformALM` (or your repository name) in the repository listing, and select the `Security` tab
+
+4. Select the **Build Service** user under the **Users" section and set the `Contribute` permission to `Allow`
+
+---
+
+## Step 10 - Validate Pipeline Configuration
 
 1. Open the saved `Commit Solution Changes` pipeline from the pipelines list.
 
@@ -234,7 +284,7 @@ This line is what links the pipeline to the template that performs the export/un
 
 *Screenshot: Opening the saved pipeline from the pipelines list.*
 
-2. Select `Edit` and confirm the YAML path still points to `/Assets/Pipelines/commit-solution-changes.yml`.
+2. Select `Edit` and confirm the YAML path still points to `/Pipelines/commit-solution-changes.yml`.
 
 ![Validate YAML path](./Media/Lesson%201/Step%207/ValidateYamlPath.png)
 
@@ -249,7 +299,7 @@ This line is what links the pipeline to the template that performs the export/un
 
 *Screenshot: Confirming the pipeline runtime parameters are available.*
 
-4. Reopen `Settings` if required and confirm `Automatically link new work in this build` remains enabled.
+4. Reopen `Settings` if required and confirm `Automatically link work items included in this run` remains enabled.
 
 ![Confirm automatic work item linking setting](./Media/Lesson%201/Step%207/ConfirmAutomaticWorkItemLinkingSetting.png)
 
@@ -268,16 +318,19 @@ This line is what links the pipeline to the template that performs the export/un
 Before moving to Lesson 2, confirm the following:
 
 1. A pipeline named `Commit Solution Changes` exists in Azure DevOps.
-2. The pipeline references `/Assets/Pipelines/commit-solution-changes.yml`.
+2. The pipeline references `/Pipelines/commit-solution-changes.yml`.
 3. Automatic work item linking is enabled in Pipeline settings.
-4. The YAML entry file references `/Assets/Templates/commit-solution-template.yml`.
+4. The YAML entry file references `/Templates/commit-solution-template.yml`.
 5. You understand the purpose of each template step.
 6. Required variable groups (`Generic Variables`, `DEV Environment Variables`) are available and authorised.
+7. These Variable Groups are linked to the `Commit Solution Changes` pipeline
+8. The `Commit Solution Changes` pipeline has been granted access to the Service Connection corresponding to the Development environment and the `Generic Variables` and `DEV Environment Variables` Variable Groups
+9. The Build Service user account has been granted `Contribute` permissions on the repository
 
 ## Notes for the Workshop
 
 - The Commit Solution pipeline is intended to be manually run when you want to capture Dataverse solution changes into source control.
-- Enabling `Automatically link new work in this build` improves end-to-end traceability from work items to successful pipeline runs.
+- Enabling `Automatically link work items included in this run` improves end-to-end traceability from work items to successful pipeline runs.
 - The first successful run typically creates or updates `Solutions/<SolutionName>` and `Settings/<SolutionName>.json` in the repository.
 - If the pipeline cannot push changes, check branch permissions and ensure the build service identity has Contribute rights.
 - If Power Platform tasks fail early, verify `SPNServiceConnection` in `DEV Environment Variables` matches the exact Azure DevOps service connection name.

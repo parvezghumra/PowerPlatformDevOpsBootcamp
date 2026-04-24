@@ -51,7 +51,7 @@ You need the following:
 | Lab 1 and Lab 2 complete | A successful `CI Build` run must exist so there are published artifacts available to deploy. |
 | `TEST` and `PROD` environments exist in Azure DevOps with approval gates configured | The deployment jobs target these environments by name. If they do not exist or have no approvers, deployment will proceed without any gate. |
 | `Generic Variables`, `TEST Environment Variables`, and `PROD Environment Variables` variable groups exist and are accessible to pipelines | Referenced directly in the pipeline YAML. |
-| Repository contains `/Assets/Pipelines/deploy-solution.yml` and `/Assets/Templates/deploy-solution-template.yml` | Required for pipeline and template resolution. |
+| Repository contains `/Pipelines/deploy-solution.yml` and `/Templates/deploy-solution-template.yml` | Required for pipeline and template resolution. |
 | Project permissions to create/edit pipelines in Azure DevOps | Required to create the YAML pipeline definition. |
 
 ### Required Variable Groups
@@ -77,7 +77,7 @@ When this pipeline is triggered manually, Azure DevOps presents a run form with 
 
 ## Understanding the Pipeline Stages
 
-The table below explains the purpose of each major section of `/Assets/Pipelines/deploy-solution.yml`.
+The table below explains the purpose of each major section of `/Pipelines/deploy-solution.yml`.
 
 | YAML Section | Purpose |
 | --- | --- |
@@ -92,7 +92,7 @@ The table below explains the purpose of each major section of `/Assets/Pipelines
 
 ## Understanding the Deployment Template Steps
 
-The table below explains each task in `/Assets/Templates/deploy-solution-template.yml` so you understand what happens when a deployment stage runs.
+The table below explains each task in `/Templates/deploy-solution-template.yml` so you understand what happens when a deployment stage runs.
 
 | Template Step / Task | Purpose |
 | --- | --- |
@@ -144,7 +144,7 @@ The table below explains each task in `/Assets/Templates/deploy-solution-templat
 
 *Screenshot: Choosing Azure Repos Git as the code source.*
 
-3. Select your workshop repository.
+3. Select your repository where you copied the `Scripts`, `Templates` and `Pipelines` folders to from the workshop repository.
 
 ![Select workshop repository](./Media/Lesson%200/Step%202/SelectWorkshopRepository.png)
 
@@ -160,9 +160,9 @@ The table below explains each task in `/Assets/Templates/deploy-solution-templat
 
 *Screenshot: Choosing to use an existing YAML file.*
 
-2. Browse to and select:
+2. Leave the default `main` or `master` branch selected, and browse to and select:
 
-	`/Assets/Pipelines/deploy-solution.yml`
+	`/Pipelines/deploy-solution.yml`
 
 ![Select deploy-solution.yml](./Media/Lesson%200/Step%203/SelectDeploySolutionYaml.png)
 
@@ -175,7 +175,7 @@ The table below explains each task in `/Assets/Templates/deploy-solution-templat
 *Screenshot: Continuing after selecting the YAML file.*
 
 > **Note**
-> Unlike the CI pipeline, this pipeline calls a shared template file for its deployment steps. Azure DevOps resolves the template reference from `/Assets/Templates/deploy-solution-template.yml` in the same repository automatically.
+> Unlike the CI pipeline, this pipeline calls a shared template file for its deployment steps. Azure DevOps resolves the template reference from `/Templates/deploy-solution-template.yml` in the same repository automatically.
 
 ---
 
@@ -230,7 +230,7 @@ parameters:
 	| Value | Behaviour |
 	| --- | --- |
 	| `Modern Upgrade` | Stages and upgrades the solution in a single asynchronous operation. This is the recommended mode for managed solutions that are already installed. |
-	| `Legacy Upgrade` | Imports the solution as a holding solution first, then applies the upgrade as a separate subsequent task. Use this if `Modern Upgrade` is not supported by your environment version. |
+	| `Legacy Upgrade` | Imports the solution as a holding solution first, then applies the upgrade as a separate subsequent task. Use this if you require a window of time to perform migration of data or interleave these deployments steps for multiple solutions within dependencies between each. |
 	| `Update` | Performs a direct solution update import. Use this when the upgrade pattern is not required or when importing a solution for the first time into an environment where the unmanaged version is present. |
 
 	> **Note**
@@ -274,7 +274,7 @@ parameters:
 resources:
   pipelines:
     - pipeline: 'CI-Build'
-      source: 'CI Build (ALM Conference Workshop Testing)'
+      source: 'CI Build'
 ```
 
 2. Understand what this block does.
@@ -367,7 +367,7 @@ resources:
 
 *Screenshot: Saving the pipeline definition.*
 
-2. When prompted, set the pipeline name to:
+2. Click the elipses (...) button towards the top-right	and choose the `Rename/move` option in the context menu. Set the pipeline name to:
 
 	`Deploy Solution`
 
@@ -386,7 +386,86 @@ resources:
 
 ---
 
-## Step 8 - Validate the Pipeline Configuration
+## Step 8 - Configure the Deploy Solution pipeline to automatically link work items and link Variable Groups
+
+1. Open the `Deploy Solution` pipline and choose the `Edit` button
+
+2. Click the elipses (...) button towards the top-right and select the `Settings` option in the context menu
+
+3. In the `Pipeline Settings` panel, check the box for `Automatically link work items included in this run`, select the `*` option in the branch selection field and click `Save`
+
+4. Click the elipses (...) button towards the top-right and select the `Triggers` option in the context menu
+
+5. Click the `Variables` tab and click the `Variable groups` section
+
+6. Click on the `Link variable group` button, and one-by-one link each of the following three Variable Groups to the pipeline, choosing the `Link` button after each selection:
+	- `Generic Variables`
+	- `TEST Environment Variables`
+	- `PROD Environment Varaibles`
+
+7. Click the drop-down button next to the `Save & Queue` button, click the `Save` option in the context menu and the `Save` button in the `Save build pipeline` dialog box.
+
+---
+
+## Step 9 - Grant Deploy Solution pipeline access to Variable Groups
+
+1. Use the left hand navigation to navigate to `Library` under the `Pipeline` section
+
+2. Select the `Generic Variables` Variable Group, click the `Pipeline Permissions` tab
+
+3. Click the `+` button and select the `Deploy Solution` pipeline in the context menu. Close the `Generic Variables` dialog box
+
+4. Return to the Variable Groups listing on the `Library` page under the `Pipelines` section
+
+5. Select the `TEST Environment Variables` Variable Group, click the `Pipeline Permissions` tabe
+
+6. Click the `+` button and select the `Deploy Solution` pipeline in the context menu. Close the `TEST Environment Variables` dialog box
+
+7. Return to the Variable Groups listing on the `Library` page under the `Pipelines` section
+
+8. Select the `PROD Environment Variables` Variable Group, click the `Pipeline Permissions` tabe
+
+9. Click the `+` button and select the `Deploy Solution` pipeline in the context menu. Close the `PROD Environment Variables` dialog box
+
+---
+
+## Step 10 - Grant Deploy Solution pipeline access to Service Connections
+
+1. Under `Project Settings` in the left hand navigation, select `Service Connection` under the `Pipelines` area
+
+2. Select the Service Connection corresponding to the Test environment
+
+3. Click on the elipses (...) button towards the top-right and select the `Security` button in the context menu
+
+4. Under the `Pipelines Permissions` section, click the `+` button and select the `Deploy Solution` pipeline
+
+5. Return to the listing of Service Connections and select the Service Connection corresponding to the Prod environment
+
+6. Click on the elipses (...) button towards the top-right and select the `Security` button in the context menu
+
+7. Under the `Pipelines Permissions` section, click the `+` button and select the `Deploy Solution` pipeline
+
+---
+
+### Step 11 - Grant Deploy Solution pipeline access to Environments
+
+1. Select `Environments` under the `Pipelines` section in the left hand navigation
+
+2. Select the environment corresponding to the Test environment
+
+3. Click the elipses (...) button towards the top-right and select the `Security` option from the context menu
+
+4. Under the `Pipeline Permissions` section, click the `+` button and select the `Deploy Solution` pipeline
+
+5. Return to the environment listing and select the environment corresponding to the Prod environment
+
+6. Click the elipses (...) button towards the top-right and select the `Security` option from the context menu
+
+7. Under the `Pipeline Permissions` section, click the `+` button and select the `Deploy Solution` pipeline
+
+---
+
+## Step 12 - Validate the Pipeline Configuration
 
 1. Open the saved `Deploy Solution` pipeline from the pipelines list.
 
@@ -438,13 +517,14 @@ Before moving to Lesson 1, confirm the following:
 5. You understand that `deployToPROD` depends on `deployToTEST` completing successfully.
 6. You understand that approval gates on the `TEST` and `PROD` Azure DevOps environments control when each deployment stage proceeds.
 7. You understand that each deployment stage uses a different variable group to supply environment-specific configuration.
+8. You understand the pipeline specific permissions granted to Service Connections, Environments and Variable Groups
 
 ## Notes for the Workshop
 
 - The `trigger: none` setting is deliberate. Deployment to non-development environments should always be a conscious decision made by a person, not an automatic response to a commit.
-- The `SolutionImportMode` default of `Modern Upgrade` is appropriate for most scenarios. Only change it if you encounter compatibility issues with a specific environment version or if you need the two-step Legacy Upgrade behaviour for auditing purposes.
+- The `SolutionImportMode` default of `Modern Upgrade` is appropriate for most scenarios. Only change it if you encounter compatibility issues with a specific environment version or if you need the two-step Legacy Upgrade behaviour data migration or solution layering sensitive dependeny resolution purpose.
 - If either the `TEST` or `PROD` environment does not have approval gates configured, the deployment job will proceed immediately without pausing. Configure approval policies on both environments in Azure DevOps under `Pipelines > Environments` before running the pipeline in Lesson 1.
-- The `Generic Variables` group is consumed at the pipeline level and typically contains values shared across all environments, such as the PAC CLI version or a shared service connection name.
+- The `Generic Variables` group is consumed at the pipeline level and typically contains values shared across all environments, such as static tokens for Connection References and Environment Variables.
 - The `TEST Environment Variables` and `PROD Environment Variables` groups are scoped to their respective deployment stages. They must contain the environment-specific values expected by the deployment template, including `SPNServiceConnection`, `EnvironmentVariableValues`, `ConnectionReferenceTokens`, and `EnvironmentID`.
 - If your repository contains more than one Dataverse solution, you run `Deploy Solution` once per solution, supplying the correct `SolutionName` value each time. All solutions share the same pipeline definition.
 
