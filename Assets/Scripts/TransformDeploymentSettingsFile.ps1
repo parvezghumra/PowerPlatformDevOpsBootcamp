@@ -4,7 +4,7 @@ param(
     $settingsFilePath,
     $environmentVariablesValues,
     $connectionTokens,
-    $environmentId,
+    $environmentUrl,
     $username,
     $password,
     $tenantId,
@@ -13,44 +13,6 @@ param(
 )
  
 $ErrorActionPreference = 'Stop'
- 
-function Connect-AdminPowerApp {
-    if ($username -and $password) {
-        $securePassword = ConvertTo-SecureString -String $password -AsPlainText -Force
-        try {
-            Write-Host "Connecting to PowerApps Admin CLI with username and password..."
-            Add-PowerAppsAccount -Username $username -Password $securePassword
-        }
-        catch {
-            throw "Failed to authenticate to PowerApps Admin CLI using username and password."
-        }
-    }
-    elseif ($tenantId -and $applicationId -and $clientSecret) {
-        try {
-            Write-Host "Connecting to PowerApps Admin CLI with service principal..."
-            Add-PowerAppsAccount -TenantID $tenantId -ApplicationId $applicationId -ClientSecret $clientSecret
-        }
-        catch {
-            throw "Failed to authenticate to PowerApps Admin CLI using service principal."
-        }
-    }
-    else {
-        throw "Insufficient authentication parameters provided. Please provide either username and password, or tenantId, applicationId, and clientSecret."
-    }
-}
- 
-function Initialize-RequiredModules {
-    Write-Host "Initializing modules..."
-    Set-PSRepository PSGallery -InstallationPolicy Trusted
-    Install-Module Microsoft.PowerApps.Administration.PowerShell -Scope CurrentUser -Force -AllowClobber -RequiredVersion 2.0.202
-    Import-Module Microsoft.PowerApps.Administration.PowerShell -Scope Global -Force
-    try {
-        Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -ErrorAction SilentlyContinue
-    }
-    catch {
-        Write-Host "Note: Execution policy is already set by a higher scope policy."
-    }
-}
  
 function Update-EnvironmentVariables {
     param($property, $environmentVariablesValues)
@@ -73,11 +35,11 @@ function Update-ConnectionReferences {
         if($property.ConnectionId -eq $token.StaticToken) {
             Write-Host "Processing ConnectionId: $($property.ConnectionId)"
             $matchingConnection = $connections |
-                Where-Object { $token.ConnectorId.EndsWith($_.ConnectorName) } |
+                Where-Object { $token.ConnectorId.EndsWith($_.ConnectorId) } |
                 Select-Object -First 1
            
             if($matchingConnection) {
-                $property.ConnectionId = $matchingConnection.ConnectionName
+                $property.ConnectionId = $matchingConnection.ConnectionId
                 Write-Host "Updated ConnectionId: $($property.ConnectionId)"
                 return $true
             }
@@ -95,17 +57,36 @@ try {
     $environmentVariablesValues = $environmentVariablesValues | ConvertFrom-Json
     $connectionTokens = $connectionTokens | ConvertFrom-Json
  
-    Initialize-RequiredModules
- 
-    Connect-AdminPowerApp
- 
-    if ($username){
-        $connections = Get-AdminPowerAppConnection -EnvironmentName $environmentId -CreatedBy $username
+    pac auth clear
+    if ($username -and $password) {
+        Write-Host "Using username and password for authentication"
+        pac auth create --name "DeploymentScriptAuth" --username $username --password $password
+        pac auth select --name "DeploymentScriptAuth"
     }
-    else{
-        $connections = Get-AdminPowerAppConnection -EnvironmentName $environmentId
+    elseif ($applicationId -and $clientSecret) {
+        Write-Host "Using applicationId and clientSecret for authentication"
+        pac auth create --name "DeploymentScriptAuth" --tenant $tenantId --applicationId $applicationId --clientSecret $clientSecret
+        pac auth select --name "DeploymentScriptAuth"
     }
-    
+    else {
+        throw "No valid authentication method provided. Please provide either username and password, or applicationId and clientSecret."
+    }
+    Write-Host "Selected environment: $environmentUrl"
+    pac org select --environment $environmentUrl
+    $connectionList = pac connection list
+    $connections = New-Object System.Collections.Generic.List[PSCustomObject]
+    if ($connectionList.Count -ge 3){
+        for ($i = 2; $i -lt $connectionList.Count; $i++) {
+            $connectionValues = $connectionList[$i].Split(' ', [StringSplitOptions]::RemoveEmptyEntries)
+            $connectionObject = [PSCustomObject]@{
+                ConnectionId = $connectionValues[0]
+                ConnectionName = $connectionValues[1]
+                ConnectorId = $connectionValues[2]
+                Status = $connectionValues[3]
+            }
+            $connections.Add($connectionObject) | Out-Null
+        }
+    }
     
    
     foreach ($object in $json.PSObject.Properties) {
